@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import { Socket } from 'socket.io-client';
-import { useNavigation } from '@react-navigation/native'; 
+import { NavigationContext } from '@react-navigation/native';
 
 interface SigninScreenProps {
   socket: Socket;
@@ -10,22 +10,23 @@ interface SigninScreenProps {
 const SigninScreen: React.FC<SigninScreenProps> = ({ socket }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigation = useNavigation(); 
+  const navigation = React.useContext(NavigationContext);
 
   const handleSignIn = () => {
     socket.emit('signin', { username, password });
   };
 
-  const handleSignUp = () => {
-    navigation.navigate('Signup');
-  };
+  useEffect(() => {
+    const handleSigninResponse = (data: any) => {
+      console.log('Received message:', data);
+    };
 
-  // useEffect(() => {
-  //   socket.on('signinResponse', (data) => {
-  //     console.log('Received message:', data);
-  //   });
+    socket.on('signinResponse', handleSigninResponse);
 
-  // }, []);
+    return () => {
+      socket.off('signinResponse', handleSigninResponse);
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -48,10 +49,6 @@ const SigninScreen: React.FC<SigninScreenProps> = ({ socket }) => {
         onPress={handleSignIn}
       />
 
-      <Button
-        title="Sign Up"
-        onPress={handleSignUp} // Call handleSignUp when Sign Up button is pressed
-      />
     </View>
   );
 };
