@@ -14,6 +14,7 @@ const SigninScreen: React.FC<SigninScreenProps> = ({ socket }) => {
 
   const handleSignIn = () => {
     socket.emit('signin', { username, password });
+    navigation?.navigate('Homepage');
   };
 
   useEffect(() => {
