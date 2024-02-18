@@ -11,7 +11,7 @@ interface HomepageScreenProps {
 
 const HomepageScreen: React.FC<HomepageScreenProps> = ({ socket }) => {
     const navigation = React.useContext(NavigationContext);
-    
+
 
     const handleRightSwipe = () => {
         navigation?.navigate('Settings');
@@ -21,26 +21,21 @@ const HomepageScreen: React.FC<HomepageScreenProps> = ({ socket }) => {
         navigation?.navigate('Chat1');
     };
 
-    const handlePress = () => {
-        console.log('handle Press');
-    };
-
     return (
         <SwipeGesture
-    onSwipeRight={handleRightSwipe}
-    onSwipeLeft={handleLeftSwipe}
-    config={{
-        velocityThreshold: 0.3,
-        directionalOffsetThreshold: 80,
-    }}
-    style={styles.swipeContainer} 
->
-
+            onSwipeRight={handleRightSwipe}
+            onSwipeLeft={handleLeftSwipe}
+            config={{
+                velocityThreshold: 0.3,
+                directionalOffsetThreshold: 80,
+            }}
+            style={styles.swipeContainer}
+        >
             <View style={styles.container}>
 
                 <CustomButton
                     title="Attendance"
-                    onPress={handlePress}
+                    onPress={() => { navigation?.navigate('Attendance'); }}
                     buttonStyle={{ backgroundColor: 'black' }}
                     margin={10}
                     textStyle={{ fontSize: 25 }}
@@ -48,7 +43,7 @@ const HomepageScreen: React.FC<HomepageScreenProps> = ({ socket }) => {
 
                 <CustomButton
                     title="Internal Marks"
-                    onPress={handlePress}
+                    onPress={() => { navigation?.navigate('InternalMarks'); }}
                     buttonStyle={{ backgroundColor: 'black' }}
                     margin={10}
                     textStyle={{ fontSize: 25 }}
@@ -56,7 +51,7 @@ const HomepageScreen: React.FC<HomepageScreenProps> = ({ socket }) => {
 
                 <CustomButton
                     title="Grade Sheet"
-                    onPress={handlePress}
+                    onPress={() => { navigation?.navigate('GradeSheet'); }}
                     buttonStyle={{ backgroundColor: 'black' }}
                     margin={10}
                     textStyle={{ fontSize: 25 }}
@@ -64,7 +59,7 @@ const HomepageScreen: React.FC<HomepageScreenProps> = ({ socket }) => {
 
                 <CustomButton
                     title="Personal"
-                    onPress={handlePress}
+                    onPress={() => { navigation?.navigate('Personal'); }}
                     buttonStyle={{ backgroundColor: 'black' }}
                     margin={10}
                     textStyle={{ fontSize: 25 }}
@@ -84,7 +79,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     swipeContainer: {
-        flex: 1, 
+        flex: 1,
     },
     title: {
         fontSize: 24,
