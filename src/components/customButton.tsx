@@ -8,28 +8,13 @@ interface CustomButtonProps extends TouchableOpacityProps {
     margin?: number;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ onPress, title, buttonStyle, textStyle, margin }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ onPress, title, buttonStyle, textStyle}) => {
     return (
-        <TouchableOpacity style={[styles.button, buttonStyle, { margin }]} onPress={onPress}>
-            <Text style={[styles.text, textStyle]}>{title}</Text>
+        <TouchableOpacity style={buttonStyle} onPress={onPress}>
+            <Text style={[textStyle]}>{title}</Text>
         </TouchableOpacity>
     );
 };
 
-const styles = StyleSheet.create({
-    button: {
-        backgroundColor: 'blue',
-        padding: 10,
-        borderRadius: 25,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '90%',
-        height: '20%',
-    },
-    text: {
-        color: 'white',
-        fontSize: 16,
-    },
-});
 
 export default CustomButton;

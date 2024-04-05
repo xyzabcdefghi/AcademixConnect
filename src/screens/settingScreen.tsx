@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, Switch, StyleSheet } from 'react-native';
+import { View, Text, Switch, StyleSheet} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Socket } from 'socket.io-client';
-
+import { useDarkMode } from '../contexts/DarkModeContext';
 
 interface SettingScreenProps {
-    socket: Socket;
-  }
+  socket: Socket;
+}
 
 const SettingScreen: React.FC<SettingScreenProps> = ({ socket }) => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const [darkModeEnabled, setDarkModeEnabled] = useState(false);
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const toggleNotifications = () => {
-    setNotificationsEnabled((prev) => !prev);
-  };
-
-  const toggleDarkMode = () => {
-    setDarkModeEnabled((prev) => !prev);
+    setNotificationsEnabled(prev => !prev);
   };
 
   return (
@@ -27,7 +24,7 @@ const SettingScreen: React.FC<SettingScreenProps> = ({ socket }) => {
       </View>
       <View style={styles.settingItem}>
         <Text style={styles.settingText}>Dark Mode</Text>
-        <Switch value={darkModeEnabled} onValueChange={toggleDarkMode} />
+        <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
       </View>
     </View>
   );
