@@ -1,1 +1,1 @@
-# ConnectEdu
+# AcademixConnect
